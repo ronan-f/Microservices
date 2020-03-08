@@ -1,4 +1,14 @@
 const packageJson = require('../package.json');
+const dotenv = require('dotenv');
+
+const envResult = dotenv.config();
+
+if (envResult.error) {
+    // eslint-disable-next-line no-console
+    console.error(`[ERROR] env failed to load: ${envResult.error}`);
+
+    process.exit(1);
+}
 
 function requireFromEnv(key) {
     if (!process.env[key]) {
