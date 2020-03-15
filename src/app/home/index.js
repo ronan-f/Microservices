@@ -26,7 +26,7 @@ function createHome({ db }) {
     const queries = createQueries({ db });
     const handlers = createHandlers(queries);
 
-    const router = express.router();
+    const router = express.Router();
 
     router.route('/').get(handlers.home);
 
