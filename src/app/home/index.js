@@ -4,9 +4,9 @@ function createHandlers({ queries }) {
     async function home(req, res, next) {
         try {
             const viewData = await queries.loadHomePage();
-
             return res.render('home/templates/home', viewData);
         } catch (e) {
+            console.error(e);
             next();
         }
     }
@@ -24,7 +24,7 @@ function createQueries({ db }) {
 
 function createHome({ db }) {
     const queries = createQueries({ db });
-    const handlers = createHandlers(queries);
+    const handlers = createHandlers({ queries });
 
     const router = express.Router();
 
