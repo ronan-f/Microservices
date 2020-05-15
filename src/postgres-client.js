@@ -6,7 +6,7 @@ function createDatabase({ connectionString }) {
 
     let connectedClient = null;
 
-    async function connect() {
+    function connect() {
         if (!connectedClient) {
             connectedClient = client
                 .connect()
@@ -17,6 +17,15 @@ function createDatabase({ connectionString }) {
         }
         return connectedClient;
     }
+
+    function query(sql, values = []) {
+        return connect().then((client) => client.query(sql, values));
+    }
+
+    return {
+        query,
+        stop: () => client.end()
+    };
 }
 
 module.exports = createDatabase;
