@@ -25,7 +25,27 @@ function incrementVideosWatched(globalPosition) {
 }
 
 function createQueries({ db }) {
-    return {};
+    function ensureHomePage() {
+        const initialData = {
+            pageData: {
+                lastViewProcessed: 0,
+                videosWatched: 0
+            }
+        };
+
+        const queryString = `
+          INSERT INTO
+            pages(page_name, page_data)
+          VALUES
+            ('home', :pageData)
+          ON CONFLICT DO NOTHING
+        `;
+
+        return db.then((client) => client.raw(queryString, initialData));
+    }
+    return {
+        ensureHomePage
+    };
 }
 
 function build({ db, messageStore }) {
