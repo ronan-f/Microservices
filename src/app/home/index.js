@@ -1,4 +1,5 @@
 const express = require('express');
+const camelCaseKeys = require('camelcase-keys');
 
 function createHandlers({ queries }) {
     async function home(req, res, next) {
@@ -16,7 +17,10 @@ function createHandlers({ queries }) {
 function createQueries({ db }) {
     async function loadHomePage() {
         const client = await db;
-        const result = client('videos').sum('view_count as videosWatched');
+
+        let result = client('pages').where({ page_name: 'home' }).limit(1);
+        result = camelCaseKeys(result);
+
         return result[0];
     }
     return { loadHomePage };
