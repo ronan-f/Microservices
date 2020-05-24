@@ -1,10 +1,10 @@
 const express = require('express');
-const v4 = require('uuid/v4');
+const { uuid } = require('uuidv4');
 
 function createActions({ messageStore }) {
     function recordViewing(traceId, videoId, userId) {
         const viewedEvent = {
-            id: v4(),
+            id: uuid(),
             type: 'VideoViewed',
             metadata: {
                 traceId,
