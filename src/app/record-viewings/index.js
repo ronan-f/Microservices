@@ -34,8 +34,8 @@ function createHandlers({ actions }) {
     };
 }
 
-function createRecordViewings({}) {
-    const actions = createActions({});
+function createRecordViewings({ messageStore }) {
+    const actions = createActions({ messageStore });
     const handlers = createHandlers({ actions });
     const router = express.Router();
 
